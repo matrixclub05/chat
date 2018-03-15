@@ -1,0 +1,40 @@
+<section class="channels-container">
+  <ul class="list-group">
+    <li *ngFor="let user of userList" class="list-group-item list-group-item-action">
+      <a href="javascript:void(0)" (click)="onUserSelect(user)">
+        <img [src]="user.profileUrl" alt="{{user.userId}}">
+        <span>{{user.userId}}</span>
+      </a>
+    </li>
+  </ul>
+</section>
+<section class="chat-container">
+  <div class="chat-header">
+    <h2>{{currentUser.userId}}</h2>
+  </div>
+  <div class="chat-body">
+    <ul class="list-group">
+      <li *ngFor="let data of messageList">
+        <img [src]="data._sender.profileUrl" [alt]="data._sender.userId">
+        <div class="message">
+          <div class="sender-name">
+            {{data._sender.userId}}
+          </div>
+          <div class="message-text">
+            {{data.message}}
+          </div>
+        </div>
+        <div class="message-date">
+          {{data.createdAt | date: 'medium'}}
+        </div>
+
+      </li>
+    </ul>
+  </div>
+  <div class="chat-footer">
+    <form novalidate class="form-group" (ngSubmit)="onMessageSubmit(); form.reset();" #form="ngForm">
+      <input type="text" [(ngModel)]="message" name="message" class="form-control">
+      <button type="submit" class="btn btn-primary">SEND</button>
+    </form>
+  </div>
+</section>
